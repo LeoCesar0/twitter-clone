@@ -1,6 +1,8 @@
 import { FaTwitter } from "react-icons/fa";
-import Modal from "../Modal";
 import { Center, ImageContainer, Title } from "./styles";
+import Modal from "../Modal";
+import Button from "../Button"
+
 
 interface IProps {
   isOpen: boolean;
@@ -16,7 +18,7 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
 
       <Center>
         <Title>Criar sua Conta</Title>
-        <button>blabla</button>
+        <Button width="100%">Botão</Button>
       </Center>
     </Modal>
   );
