@@ -1,12 +1,30 @@
-
-
-
+import { Button, Container, ImgContainer, RightContainer } from "./styles";
+import bgImg from "../../assets/images/Outdoor.png";
+import { FaTwitter } from "react-icons/fa";
 
 const Login: React.FC = () => {
-    return (
-        <div>Página de Login</div>
-    )
-}
+  return (
+    <Container>
+      <ImgContainer>
+        <img src={bgImg} alt="Twitter Background" />
+      </ImgContainer>
 
+      <RightContainer >
 
-export default Login
+        <FaTwitter color="#d9d9d9" size="40" />
+        <h1>Acontecendo Agora</h1>
+        <h2>Inscreva-se no Twitter hoje mesmo.</h2>
+
+        <div className="login-buttons">
+        <Button>Inscreva-se com Google</Button>
+        <Button>Inscreva-se com Apple</Button>
+        <Button>Inscreva-se com número de celular o...</Button>
+        </div>
+        <p>Já tem uma conta? <span>Entre</span></p>
+      </RightContainer>
+
+    </Container>
+  );
+};
+
+export default Login;

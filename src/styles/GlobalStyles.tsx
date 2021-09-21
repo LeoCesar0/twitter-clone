@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components"
 
-
 export const GlobalStyle = createGlobalStyle`
 
 html, body, div, span, applet, object, iframe,
@@ -25,7 +24,6 @@ time, mark, audio, video {
 	text-decoration: none;
 	color: white;
 	font-family: 'DM Sans', sans-serif;
-
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
