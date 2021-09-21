@@ -1,16 +1,27 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import { GlobalStyle } from "./styles/GlobalStyles";
+import ThemeProvider from "./styles/ThemeProvider";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 const Routes = () => {
   return (
     <Router>
-        <GlobalStyle />
+      <GlobalStyle />
+      <ThemeProvider>
+
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
         </Switch>
+
+      </ThemeProvider>
     </Router>
   );
 };
