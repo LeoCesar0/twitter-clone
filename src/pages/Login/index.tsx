@@ -1,10 +1,15 @@
 import { Button, Container, ImgContainer, RightContainer } from "./styles";
 import bgImg from "../../assets/images/Outdoor.png";
 import { FaTwitter } from "react-icons/fa";
+import Modal from "../../components/Modal";
 
 const Login: React.FC = () => {
   return (
     <Container>
+      <Modal>
+        <h1>Esse é um modal</h1>
+        <button>blabla</button>
+      </Modal>
       <ImgContainer>
         <img src={bgImg} alt="Twitter Background" />
       </ImgContainer>
