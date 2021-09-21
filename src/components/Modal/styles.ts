@@ -9,11 +9,12 @@ export const Background = styled.div`
 `;
 
 export const Center = styled.div`
+width: 600px;
   position: absolute;
   min-width: 300px;
   min-height: 500;
 
-  padding: 0 35px;
+  padding: 20px 35px;
 
   left: 50%;
   top: 50%;
@@ -22,4 +23,5 @@ export const Center = styled.div`
 
   border-radius: 20px;
   background-color: black;
+
 `;

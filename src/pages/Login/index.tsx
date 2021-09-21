@@ -1,15 +1,19 @@
 import { Button, Container, ImgContainer, RightContainer } from "./styles";
+import { useState } from "react";
+
 import bgImg from "../../assets/images/Outdoor.png";
 import { FaTwitter } from "react-icons/fa";
-import Modal from "../../components/Modal";
+import CreateAccountModal from "../../components/CreateAccountModal";
 
 const Login: React.FC = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] = useState(false)
+
+
   return (
     <Container>
-      <Modal>
-        <h1>Esse é um modal</h1>
-        <button>blabla</button>
-      </Modal>
+      <CreateAccountModal isOpen={isCreateAccountModalOpen} setIsOpen={setIsCreateAccountModalOpen} />
+
       <ImgContainer>
         <img src={bgImg} alt="Twitter Background" />
       </ImgContainer>
@@ -21,9 +25,7 @@ const Login: React.FC = () => {
         <h2>Inscreva-se no Twitter hoje mesmo.</h2>
 
         <div className="login-buttons">
-        <Button>Inscreva-se com Google</Button>
-        <Button>Inscreva-se com Apple</Button>
-        <Button>Inscreva-se com número de celular o...</Button>
+        <Button onClick={() => {setIsCreateAccountModalOpen(true)}}>Inscreva-se com Email</Button>
         </div>
         <p>Já tem uma conta? <span>Entre</span></p>
       </RightContainer>

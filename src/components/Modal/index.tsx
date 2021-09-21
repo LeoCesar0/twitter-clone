@@ -1,10 +1,25 @@
 import { Background, Center } from "./styles";
 
-const Modal: React.FC = ({ children }) => {
+interface IModal {
+  isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void
+}
+
+const Modal: React.FC<IModal> = ({ children, isOpen, setIsOpen }) => {
+    const closeModal = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if(event.target === event.currentTarget){
+            setIsOpen(false)
+        }
+    }
+
   return (
-    <Background>
-      <Center>{children}</Center>
-    </Background>
+    <>
+      {isOpen && (
+        <Background onClick={closeModal}>
+          <Center>{children}</Center>
+        </Background>
+      )}
+    </>
   );
 };
 
