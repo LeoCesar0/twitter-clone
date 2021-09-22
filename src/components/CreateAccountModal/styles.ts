@@ -13,3 +13,9 @@ export const Title = styled.h1`
   font-weight: 700;
   line-height: 29px;
 `;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+` 

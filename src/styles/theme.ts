@@ -15,5 +15,6 @@ export const theme: ITheme = {
         gray: '#8899A6',
         darkGray: '#253343',
         borderColor: '#2F3336'
+        
     }
 }
