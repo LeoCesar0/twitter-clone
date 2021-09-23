@@ -12,12 +12,15 @@ interface IProps {
 }
 
 const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  console.log({name, email, username, password})
+  const isDisabled =
+    name === "" || email === "" || username === "" || password.length < 8;
+
+  console.log({ name, email, username, password });
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -25,14 +28,34 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
         <FaTwitter className="login-twitter-image" color="#d9d9d9" size="40" />
       </ImageContainer>
 
-      <Center >
+      <Center>
         <InputContainer>
-        <Input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <Input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-        <Input placeholder="Senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <Input
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            placeholder="E-mail"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="Senha"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <Title>Criar sua Conta</Title>
-          <Button width="100%">Botão</Button>
+          <Button width="100%" isDisabled={isDisabled}>
+            Botão
+          </Button>
         </InputContainer>
       </Center>
     </Modal>
