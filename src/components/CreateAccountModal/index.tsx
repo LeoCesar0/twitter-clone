@@ -5,6 +5,8 @@ import { useState } from "react";
 import Modal from "../Modal";
 import Button from "../Button";
 import Input from "../Input";
+import validateCreateAccountFields from "../../utils/validateCreateAccountFields";
+import { toast } from "react-toastify";
 
 interface IProps {
   isOpen: boolean;
@@ -18,9 +20,18 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [password, setPassword] = useState("");
 
   const isDisabled =
-    name === "" || email === "" || username === "" || password.length < 8;
+    name === "" || email === "" || username === "" || password === "";
 
-  console.log({ name, email, username, password });
+
+  console.log({name, email, username, password})
+
+  const createAccount = async () => {
+    const validation = validateCreateAccountFields(name, email, username, password)
+    
+    if(validation !== true){
+      toast.error(validation)
+    }
+  }
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -53,7 +64,7 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Title>Criar sua Conta</Title>
-          <Button width="100%" isDisabled={isDisabled}>
+          <Button width="100%" isDisabled={isDisabled} onClick={createAccount}>
             Botão
           </Button>
         </InputContainer>
