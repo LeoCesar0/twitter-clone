@@ -7,6 +7,7 @@ import Button from "../Button";
 import Input from "../Input";
 import validateCreateAccountFields from "../../utils/validateCreateAccountFields";
 import { toast } from "react-toastify";
+import { api } from "../../services/api";
 
 interface IProps {
   isOpen: boolean;
@@ -18,29 +19,66 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const isDisabled =
-    name === "" || email === "" || username === "" || password === "";
-
-
-  console.log({name, email, username, password})
+    name === "" ||
+    email === "" ||
+    username === "" ||
+    password === "" ||
+    loading;
 
   const createAccount = async () => {
-    const validation = validateCreateAccountFields(name, email, username, password)
-    
-    if(validation !== true){
-      toast.error(validation)
+    const validation = validateCreateAccountFields(
+      name,
+      email,
+      username,
+      password
+    );
+
+    if (validation !== true) {
+      toast.error(validation);
     }
+
+    setLoading(true);
+
+    // Post Users
+
+    try {
+      await api.post("/users", {
+        name,
+        email,
+        username,
+        password,
+      });
+
+      toast.success("Usuário criado com sucesso.");
+      onClose();
+    } catch (error) {
+      console.log({ error });
+      toast.error(error?.response?.data?.message[0] || "Algo deu errado!");
+    }
+
+    setLoading(false);
+  };
+
+  function onClose() {
+    setName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setIsOpen(false);
   }
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} onClose={onClose}>
       <ImageContainer>
         <FaTwitter className="login-twitter-image" color="#d9d9d9" size="40" />
       </ImageContainer>
 
       <Center>
         <InputContainer>
+          <Title>Criar sua Conta</Title>
           <Input
             placeholder="Nome"
             value={name}
@@ -63,9 +101,9 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Title>Criar sua Conta</Title>
+
           <Button width="100%" isDisabled={isDisabled} onClick={createAccount}>
-            Botão
+            Cadastrar
           </Button>
         </InputContainer>
       </Center>

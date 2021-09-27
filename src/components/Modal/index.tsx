@@ -2,13 +2,15 @@ import { Background, Center } from "./styles";
 
 interface IModal {
   isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void
+  setIsOpen: (isOpen: boolean) => void
+  onClose: () => void
 }
 
-const Modal: React.FC<IModal> = ({ children, isOpen, setIsOpen }) => {
+const Modal: React.FC<IModal> = ({ children, isOpen, setIsOpen, onClose }) => {
     const closeModal = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if(event.target === event.currentTarget){
             setIsOpen(false)
+            onClose()
         }
     }
 
