@@ -4,6 +4,7 @@ import { useState } from "react";
 import bgImg from "../../assets/images/Outdoor.png";
 import { FaTwitter } from "react-icons/fa";
 import CreateAccountModal from "../../components/CreateAccountModal";
+import LoginModal from "../../components/LoginModal";
 
 const Login: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
@@ -13,6 +14,7 @@ const Login: React.FC = () => {
   return (
     <Container>
       <CreateAccountModal isOpen={isCreateAccountModalOpen} setIsOpen={setIsCreateAccountModalOpen} />
+      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen}/>
 
       <ImgContainer>
         <img src={bgImg} alt="Twitter Background" />
@@ -27,7 +29,7 @@ const Login: React.FC = () => {
         <div className="login-buttons">
         <Button onClick={() => {setIsCreateAccountModalOpen(true)}}>Inscreva-se com Email</Button>
         </div>
-        <p>Já tem uma conta? <span>Entre</span></p>
+        <p>Já tem uma conta? <span onClick={() => {setIsLoginModalOpen(true)}} >Entrar</span></p>
       </RightContainer>
 
     </Container>

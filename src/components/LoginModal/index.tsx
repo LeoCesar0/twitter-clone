@@ -1,38 +1,36 @@
 import { FaTwitter } from "react-icons/fa";
-import { Center, ImageContainer, Title, InputContainer } from "./styles";
 import { useState } from "react";
+import { useHistory } from 'react-router-dom'
+
+import { Center, ImageContainer, Title, InputContainer } from "./styles";
 
 import Modal from "../Modal";
 import Button from "../Button";
 import Input from "../Input";
-import validateCreateAccountFields from "../../utils/validateCreateAccountFields";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
+
+import validateLoginFields from "../../utils/validateLoginFields";
 
 interface IProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
-  const [name, setName] = useState("");
+const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory()
 
   const isDisabled =
-    name === "" ||
     email === "" ||
-    username === "" ||
     password === "" ||
     loading;
 
   const createAccount = async () => {
-    const validation = validateCreateAccountFields(
-      name,
+    const validation = validateLoginFields(
       email,
-      username,
       password
     );
 
@@ -45,26 +43,22 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
     // Post Users
 
     try {
-      await api.post("/users", {
-        name,
+      await api.post("/login", {
         email,
-        username,
-        password,
+        password
       });
 
-      toast.success("Usuário criado com sucesso.");
-      onClose();
+      history.push("/")
     } catch (error) {
-      toast.error(error?.response?.data?.message[0] || "Algo deu errado!");
+      console.log({ error });
+      toast.error(error?.response?.data?.message[0] || "Não foi possível fazer login!");
     }
 
     setLoading(false);
   };
 
   function onClose() {
-    setName("");
     setEmail("");
-    setUsername("");
     setPassword("");
     setIsOpen(false);
   }
@@ -77,22 +71,12 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
 
       <Center>
         <InputContainer>
-          <Title>Criar sua Conta</Title>
-          <Input
-            placeholder="Nome"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <Title>Entre no twitter</Title>
           <Input
             placeholder="E-mail"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
           />
           <Input
             placeholder="Senha"
@@ -102,7 +86,7 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
           />
 
           <Button width="100%" isDisabled={isDisabled} onClick={createAccount}>
-            Cadastrar
+            Fazer login
           </Button>
         </InputContainer>
       </Center>
@@ -110,4 +94,4 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export default CreateAccountModal;
+export default LoginModal;
