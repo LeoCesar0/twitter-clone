@@ -1,8 +1,10 @@
 import { useGlobalState } from "../../context/GlobalContext";
-
+import { apiWithAuth } from "../../services/api";
 
 function Home() {
-  const { auth } = useGlobalState()
+  const { auth } = useGlobalState();
+
+  apiWithAuth.get("/feed");
 
   return (
     <div className="home">
