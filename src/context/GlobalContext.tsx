@@ -18,13 +18,26 @@ interface IGlobalState {
 
 const GlobalContext = createContext<IGlobalState>({} as IGlobalState);
 
-
 export const GlobalStateProvider: React.FC = ({ children }) => {
-  const [auth, setAuth] = useState<IAuth>();
+  const [auth, setAuthState] = useState<IAuth | undefined>(() => {
+    const auth = localStorage.getItem("@twitter:auth") || undefined
+
+    if(auth){
+      return JSON.parse(auth)
+    }
+
+    return auth
+  });
 
   const removeAuth = () => {
-    setAuth(undefined);
+    setAuthState(undefined);
   };
+
+  const setAuth = (auth: IAuth) => {
+    localStorage.setItem("@twitter:auth", JSON.stringify(auth))
+
+    setAuthState(auth)
+  }
 
   return (
     <GlobalContext.Provider value={{ auth, setAuth, removeAuth }}>
@@ -33,9 +46,8 @@ export const GlobalStateProvider: React.FC = ({ children }) => {
   );
 };
 
-
 export const useGlobalState = () => {
-  const context = useContext(GlobalContext)
+  const context = useContext(GlobalContext);
 
-  return context
-}
+  return context;
+};
