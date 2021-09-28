@@ -18,6 +18,7 @@ interface IGlobalState {
 
 const GlobalContext = createContext<IGlobalState>({} as IGlobalState);
 
+
 export const GlobalStateProvider: React.FC = ({ children }) => {
   const [auth, setAuth] = useState<IAuth>();
 
@@ -35,7 +36,6 @@ export const GlobalStateProvider: React.FC = ({ children }) => {
 
 export const useGlobalState = () => {
   const context = useContext(GlobalContext)
-
 
   return context
 }

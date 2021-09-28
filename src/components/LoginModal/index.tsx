@@ -1,6 +1,6 @@
 import { FaTwitter } from "react-icons/fa";
 import { useState } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { useGlobalState } from "../../context/GlobalContext";
 
 import { Center, ImageContainer, Title, InputContainer } from "./styles";
@@ -23,21 +23,13 @@ const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const globalState = useGlobalState()
-  const history = useHistory()
+  const history = useHistory();
+  const { setAuth } = useGlobalState();
 
-  console.log({globalState})
-
-  const isDisabled =
-    email === "" ||
-    password === "" ||
-    loading;
+  const isDisabled = email === "" || password === "" || loading;
 
   const createAccount = async () => {
-    const validation = validateLoginFields(
-      email,
-      password
-    );
+    const validation = validateLoginFields(email, password);
 
     if (validation !== true) {
       toast.error(validation);
@@ -48,15 +40,17 @@ const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
     // Post Users
 
     try {
-      await api.post("/login", {
+      const { data } = await api.post("/login", {
         email,
-        password
+        password,
       });
-
-      history.push("/")
+      setAuth(data);
+      history.push("/");
     } catch (error) {
       console.log({ error });
-      toast.error(error?.response?.data?.message[0] || "Não foi possível fazer login!");
+      toast.error(
+        error?.response?.data?.message[0] || "Não foi possível fazer login!"
+      );
     }
 
     setLoading(false);

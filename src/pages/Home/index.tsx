@@ -1,8 +1,12 @@
+import { useGlobalState } from "../../context/GlobalContext";
+
 
 function Home() {
+  const { auth } = useGlobalState()
+
   return (
     <div className="home">
-      <h1>Meu Site</h1>
+      <h1>Usuário logado: {auth?.user.name} </h1>
     </div>
   );
 }
