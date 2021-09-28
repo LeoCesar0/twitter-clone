@@ -30,6 +30,7 @@ export const GlobalStateProvider: React.FC = ({ children }) => {
   });
 
   const removeAuth = () => {
+    localStorage.removeItem("@twitter:auth")
     setAuthState(undefined);
   };
 
