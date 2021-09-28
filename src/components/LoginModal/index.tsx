@@ -1,6 +1,7 @@
 import { FaTwitter } from "react-icons/fa";
 import { useState } from "react";
 import { useHistory } from 'react-router-dom'
+import { useGlobalState } from "../../context/GlobalContext";
 
 import { Center, ImageContainer, Title, InputContainer } from "./styles";
 
@@ -21,7 +22,11 @@ const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const globalState = useGlobalState()
   const history = useHistory()
+
+  console.log({globalState})
 
   const isDisabled =
     email === "" ||
