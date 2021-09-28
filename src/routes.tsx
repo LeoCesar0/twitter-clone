@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { GlobalStateProvider } from "./context/GlobalContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Routes = () => {
   return (
@@ -29,9 +30,9 @@ const Routes = () => {
             theme="colored"
           />
           <Switch>
-            <Route exact path="/">
+            <ProtectedRoute exact path="/">
               <Home />
-            </Route>
+            </ProtectedRoute>
             <Route path="/login">
               <Login />
             </Route>
