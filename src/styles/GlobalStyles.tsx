@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -51,18 +51,16 @@ table {
 
 /*--------------------------------------------*/
 
+*{
+	box-sizing: border-box;
+}
+
 html{
 	background: black;
 }
 
 #root{
-	/* height: 100%;
-	width: 100%; */
-	position: absolute;
-	bottom: 0;
-	top: 0;
-	left: 0;
-	right: 0;
+
 }
 
-`
+`;
