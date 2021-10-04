@@ -1,3 +1,4 @@
+import SearchInput from "../../components/SearchInput";
 import SideBar from "../../components/SideBar";
 import { Container } from "./styles";
 
@@ -11,7 +12,9 @@ function Home() {
     <Container>
       <SideBar />
       <div></div>
-      <div></div>
+      <div>
+        <SearchInput />
+      </div>
     </Container>
 
 
