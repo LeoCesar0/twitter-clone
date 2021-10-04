@@ -1,27 +1,31 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+interface IProps {
+  isOnFocus: boolean
+}
+
+export const Container = styled.div<IProps>`
   width: 348px;
   margin-top: 12px;
   padding: 12px;
   display: flex;
 
   background: #202327;
-  border: 1px solid #253341;
+  border: 1px solid ${props => props.isOnFocus ? props.theme.color.blue : "#253341" };
   border-radius: 40px;
   align-items: center;
 
-  & > svg {
+  svg {
     width: 16px;
     height: 16px;
     margin-right: 12px;
-    color: ${(props) => props.theme.color.gray};
+    stroke: ${(props) => props.isOnFocus ? props.theme.color.blue : props.theme.color.gray };
   }
 `;
 
 export const Input = styled.input`
   height: 18px;
-
+  width: 100%;
   background: none;
 
   font-size: 15px;

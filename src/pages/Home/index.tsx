@@ -11,7 +11,7 @@ function Home() {
   return (
     <Container>
       <SideBar />
-      <div></div>
+      <div style={{width: "600px", background: "#ffffff60"}}></div>
       <div>
         <SearchInput />
       </div>

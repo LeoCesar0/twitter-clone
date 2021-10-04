@@ -61,8 +61,8 @@ html{
 	background: black;
 }
 
-#root{
-
+html, body, #root{
+	height: 100%;
 }
 
 `;

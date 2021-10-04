@@ -5,7 +5,6 @@ interface IProps {
 }
 
 export const Container = styled.div`
-  height: 100%;
   padding: 27px 0px;
   display: flex;
   flex-direction: column;
