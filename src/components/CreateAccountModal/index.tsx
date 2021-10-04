@@ -55,7 +55,7 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
       toast.success("Usuário criado com sucesso.");
       onClose();
     } catch (error) {
-      toast.error(error?.response?.data?.message[0] || "Algo deu errado!");
+      toast.error(error?.response?.data?.message || "Algo deu errado!");
     }
 
     setLoading(false);

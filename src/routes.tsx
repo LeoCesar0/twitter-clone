@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { GlobalStateProvider } from "./context/GlobalContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Perfil from "./pages/Perfil";
 
 const Routes = () => {
   return (
@@ -32,6 +33,9 @@ const Routes = () => {
           <Switch>
             <ProtectedRoute exact path="/">
               <Home />
+            </ProtectedRoute>
+            <ProtectedRoute path="/perfil">
+              <Perfil />
             </ProtectedRoute>
             <Route path="/login">
               <Login />

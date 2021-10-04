@@ -1,7 +1,7 @@
 import SideBar from "../../components/SideBar";
 import { Container } from "./styles";
 
-function Home() {
+function Perfil() {
   // const { auth } = useGlobalState();
 
   // apiWithAuth.get("/feed");
@@ -18,4 +18,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Perfil;
