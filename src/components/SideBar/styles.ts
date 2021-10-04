@@ -14,6 +14,11 @@ export const Container = styled.div`
 
   .sidebar-logo {
     margin-bottom: 22px;
+    margin-left: 12px;
+  }
+
+  a{
+      width: max-content;
   }
 `;
 export const Menu = styled.nav`
@@ -23,7 +28,7 @@ export const Menu = styled.nav`
 
 export const MenuButton = styled.div<IProps>`
   width: max-content;
-  padding: 12px 16px;
+  padding: 12px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;

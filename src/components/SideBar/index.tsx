@@ -5,27 +5,40 @@ import HomeIcon from "../../assets/images/HomeIcon.svg";
 
 import Button from "../Button";
 import { Container, MenuButton, Menu, Title } from "./styles";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import { useGlobalState } from "../../context/GlobalContext";
 
 const SideBar: React.FC = () => {
-    let location = useLocation()
+    const { removeAuth } = useGlobalState();
+    let location = useLocation();
+    let history = useHistory()
+
+    const LogOut = () => {
+
+        removeAuth()
+        history.push("/login")
+    }
 
   return (
     <Container>
       <FaTwitter size="25px" className="sidebar-logo"></FaTwitter>
       <Menu>
+        <Link to="/">
+          <MenuButton isActive={location.pathname === "/"}>
+            <img src={HomeIcon} alt="home" />
+            <Title>Página Inicial</Title>
+          </MenuButton>
+        </Link>
 
-        <MenuButton isActive={location.pathname === "/"} >
-          <img src={HomeIcon} alt="home" />
-          <Title>Página Inicial</Title>
-        </MenuButton>
+        <Link to="/perfil">
+          <MenuButton isActive={location.pathname === "/perfil"}>
+            <BsPerson />
+            <Title>Perfil</Title>
+          </MenuButton>
+        </Link>
 
-        <MenuButton isActive={location.pathname === "/perfil"}>
-          <BsPerson />
-          <Title>Perfil</Title>
-        </MenuButton>
-
-        <MenuButton>
+        <MenuButton onClick={LogOut} >
           <FiLogOut />
           <Title>Fazer Logout</Title>
         </MenuButton>
