@@ -43,12 +43,38 @@ export const DropDown = styled.div`
   position: absolute;
   padding: 20px;
   width: 100%;
+  max-height: 575px;
   left: 0;
   top: calc(100% + 8px);
   border: 1px solid #2f3336;
   border-radius: 8px;
 
   box-shadow: 2px 2px 8px 0px #74747440;
+
+  overflow: auto;
+
+  &::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+  //background: ${props => props.theme.color.blue + "20"};
+	background-color: #F5F5F520;
+}
+
+&::-webkit-scrollbar
+{
+	width: 12px;
+}
+
+&::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+	//background-color: ${props => props.theme.color.blue};
+}
+
+
 
   img {
     width: 50px;
@@ -70,6 +96,8 @@ export const DropDown = styled.div`
 
     color: ${props => props.theme.color.gray};
   }
+
+
 `;
 
 export const UserContainer = styled.div`

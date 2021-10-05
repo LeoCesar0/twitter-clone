@@ -49,7 +49,7 @@ const SearchInput = () => {
 
       {users && isOnFocus && (
         <DropDown>
-          {users.slice(0,5).map((user, index) => (
+          {users.map((user, index) => (
             <UserContainer key={index}>
               <img
                 src={`https://robohash.org/${user.username}`}
