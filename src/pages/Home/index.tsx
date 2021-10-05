@@ -12,7 +12,7 @@ function Home() {
     <Container>
       <SideBar />
       <div style={{width: "600px", background: "#ffffff60"}}></div>
-      <div>
+      <div style={{ background: "#ffffff20"}}>
         <SearchInput />
       </div>
     </Container>
