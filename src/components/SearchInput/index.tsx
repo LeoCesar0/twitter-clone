@@ -1,21 +1,7 @@
 import { Container, DropDown, Input, UserContainer } from "./styles";
 import { FiSearch } from "react-icons/fi";
 import { useEffect, useState } from "react";
-
-const MockUsers = [
-  {
-    name: "Ricardo",
-    username: "rickardo",
-  },
-  {
-    name: "Fernanda",
-    username: "fefa",
-  },
-  {
-    name: "Fernando",
-    username: "fefo",
-  },
-];
+import { apiWithAuth } from "../../services/api";
 
 interface IUser {
   name: string;
@@ -24,15 +10,25 @@ interface IUser {
 
 const SearchInput = () => {
   const [isOnFocus, setIsOnFocus] = useState(false);
-  const [users, setUsers] = useState<IUser[]>(MockUsers);
-  const [search, setSearch] = useState("")
+  const [users, setUsers] = useState<IUser[]>();
+  const [search, setSearch] = useState("");
 
-  useEffect(()=>{
-    const timeOut = setTimeout(()=>{console.log("PESQUISA")}, 1100)
+  const getUsers = async () => {
+    const { data } = await apiWithAuth.get(`/users?search=${search}`);
 
-    return () => {clearTimeout(timeOut)}
-  },[search])
+    setUsers(data);
+  };
 
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      getUsers();
+    }, 1100);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   return (
     <Container isOnFocus={isOnFocus}>
@@ -46,12 +42,14 @@ const SearchInput = () => {
           setIsOnFocus(false);
         }}
         value={search}
-        onChange={(event)=>{setSearch(event.target.value)}}
+        onChange={(event) => {
+          setSearch(event.target.value);
+        }}
       ></Input>
 
-      <DropDown>
-        {users &&
-          users.map((user, index) => (
+      {users && isOnFocus && (
+        <DropDown>
+          {users.slice(0,5).map((user, index) => (
             <UserContainer key={index}>
               <img
                 src={`https://robohash.org/${user.username}`}
@@ -63,7 +61,8 @@ const SearchInput = () => {
               </div>
             </UserContainer>
           ))}
-      </DropDown>
+        </DropDown>
+      )}
     </Container>
   );
 };

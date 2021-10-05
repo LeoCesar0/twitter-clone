@@ -44,7 +44,7 @@ export const DropDown = styled.div`
   padding: 20px;
   width: 100%;
   left: 0;
-  transform: translateY(calc(100% + 8px));
+  top: calc(100% + 8px);
   border: 1px solid #2f3336;
   border-radius: 8px;
 

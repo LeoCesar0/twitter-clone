@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
 export interface IAuth {
-  access_token: string;
+  access_token: string
   user: {
+    email: string;
     id: string;
     name: string;
     username: string;
-    email: string;
   };
 }
 
