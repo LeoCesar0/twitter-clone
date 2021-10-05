@@ -18,6 +18,7 @@ interface IProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
+
 const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

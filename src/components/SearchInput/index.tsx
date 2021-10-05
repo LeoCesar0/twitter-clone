@@ -1,6 +1,6 @@
 import { Container, DropDown, Input, UserContainer } from "./styles";
 import { FiSearch } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MockUsers = [
   {
@@ -25,6 +25,14 @@ interface IUser {
 const SearchInput = () => {
   const [isOnFocus, setIsOnFocus] = useState(false);
   const [users, setUsers] = useState<IUser[]>(MockUsers);
+  const [search, setSearch] = useState("")
+
+  useEffect(()=>{
+    const timeOut = setTimeout(()=>{console.log("PESQUISA")}, 1100)
+
+    return () => {clearTimeout(timeOut)}
+  },[search])
+
 
   return (
     <Container isOnFocus={isOnFocus}>
@@ -37,6 +45,8 @@ const SearchInput = () => {
         onBlur={() => {
           setIsOnFocus(false);
         }}
+        value={search}
+        onChange={(event)=>{setSearch(event.target.value)}}
       ></Input>
 
       <DropDown>
