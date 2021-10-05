@@ -9,7 +9,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  background: #333;
 
   .sidebar-logo {
     margin-bottom: 22px;

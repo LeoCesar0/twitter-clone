@@ -1,6 +1,8 @@
+import { BsTypeH1 } from "react-icons/bs";
+import Main from "../../components/Main";
 import SearchInput from "../../components/SearchInput";
 import SideBar from "../../components/SideBar";
-import { Container } from "./styles";
+import { Container, Tweet } from "./styles";
 
 function Home() {
   // const { auth } = useGlobalState();
@@ -11,8 +13,60 @@ function Home() {
   return (
     <Container>
       <SideBar />
-      <div style={{width: "600px", background: "#ffffff60"}}></div>
-      <div style={{ background: "#ffffff20"}}>
+      <Main fixedContent={
+        <h1>Fixed Content</h1>
+      }>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          <Tweet>
+          <h1>Tweet</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores eaque soluta corrupti, commodi recusandae beatae sit repellendus voluptates doloremque pariatur, accusamus, accusantium cumque possimus! Dolore vitae voluptates iure laborum excepturi.</p>
+          </Tweet>
+          
+      </Main>
+      <div >
         <SearchInput />
       </div>
     </Container>
