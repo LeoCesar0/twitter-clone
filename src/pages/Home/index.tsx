@@ -1,118 +1,49 @@
+import Button from "../../components/Button";
 import PageWrapper from "../../components/PageWrapper";
-import { Tweet } from "./styles";
+import Tweet from "../../components/Tweet";
+import { IAuth, useGlobalState } from "../../context/GlobalContext";
+import { TweetContainer, TweetInput, UserName } from "./styles";
 
 function Home() {
+  const {
+    auth: { user },
+  } = useGlobalState() as { auth: IAuth };
+
+  const tweets: JSX.Element[] = [];
+
+  for (let i = 0; i <= 20; i++) {
+    tweets.push(
+      <Tweet key={i} name={user.name} username={user.username}>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas sunt
+        error aliquid libero eius maxime accusamus facilis molestiae impedit
+        optio beatae, rerum officiis id mollitia quaerat neque quis odit? Quae?
+      </Tweet>
+    );
+  }
 
   return (
-    <PageWrapper fixedContent={<h1>Fixed Content</h1>}>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
-      <Tweet>
-        <h1>Tweet</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores
-          eaque soluta corrupti, commodi recusandae beatae sit repellendus
-          voluptates doloremque pariatur, accusamus, accusantium cumque
-          possimus! Dolore vitae voluptates iure laborum excepturi.
-        </p>
-      </Tweet>
+    <PageWrapper
+      fixedContent={
+        <>
+          <UserName>{user.name}</UserName>
+          <TweetContainer>
+            <div>
+              <img
+                src={`https://robohash.org/${user.username}`}
+                alt={user.username}
+              />
+              <TweetInput placeholder="O que está acontecendo?" />
+            </div>
+            <Button>Tweet</Button>
+          </TweetContainer>
+        </>
+      }
+    >
+      {tweets}
+
+      {/* <Tweet name={user.name} username={user.username}>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas sunt error aliquid libero eius maxime accusamus facilis molestiae impedit optio beatae, rerum officiis id mollitia quaerat neque quis odit? Quae?
+      </Tweet> */}
     </PageWrapper>
   );
 }
