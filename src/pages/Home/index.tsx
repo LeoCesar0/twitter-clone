@@ -1,25 +1,43 @@
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import PageWrapper from "../../components/PageWrapper";
 import Tweet from "../../components/Tweet";
 import { IAuth, useGlobalState } from "../../context/GlobalContext";
+import { apiWithAuth } from "../../services/api";
 import { TweetContainer, TweetInput, UserName } from "./styles";
 
+interface ITweet {
+  id: string;
+  content: string;
+  user: {
+    id: string;
+    name: string;
+    bio: null;
+    username: string;
+    email: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
 function Home() {
+  const [tweets, setTweets] = useState<ITweet[]>([]);
+
   const {
     auth: { user },
   } = useGlobalState() as { auth: IAuth };
 
-  const tweets: JSX.Element[] = [];
+  const getFeed = async () => {
+    const { data } = await apiWithAuth.get<ITweet[]>("/feed");
 
-  for (let i = 0; i <= 20; i++) {
-    tweets.push(
-      <Tweet key={i} name={user.name} username={user.username}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas sunt
-        error aliquid libero eius maxime accusamus facilis molestiae impedit
-        optio beatae, rerum officiis id mollitia quaerat neque quis odit? Quae?
-      </Tweet>
-    );
-  }
+    setTweets(data)
+    console.log(data)
+  };
+
+  useEffect(()=>{
+    getFeed()
+  },[])
+
 
   return (
     <PageWrapper
@@ -39,11 +57,14 @@ function Home() {
         </>
       }
     >
-      {tweets}
 
-      {/* <Tweet name={user.name} username={user.username}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas sunt error aliquid libero eius maxime accusamus facilis molestiae impedit optio beatae, rerum officiis id mollitia quaerat neque quis odit? Quae?
-      </Tweet> */}
+      {tweets && tweets.map((tweet)=>
+        <Tweet key={tweet.id} name={tweet.user.name} username={tweet.user.username}>
+          {tweet.content}
+      </Tweet> 
+      )}
+
+     
     </PageWrapper>
   );
 }
