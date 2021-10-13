@@ -1,20 +1,27 @@
-import SideBar from "../../components/SideBar";
-import { Container } from "./styles";
+import PageWrapper from "../../components/PageWrapper";
+import { FixedContainer, FixedFirstChild, FixedSecondChild } from "./styles";
+import { BsArrowLeft } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Perfil() {
-  // const { auth } = useGlobalState();
-
-  // apiWithAuth.get("/feed");
-  // <h1>Usuário logado: {auth?.user.name} </h1>
-
   return (
-    <Container>
-      <SideBar />
-      <div></div>
-      <div></div>
-    </Container>
-
-
+    <PageWrapper
+      fixedContent={
+        <>
+          <FixedContainer>
+            <FixedFirstChild>
+              <Link to="/" >
+              <BsArrowLeft size="18px" />
+              </Link>
+            </FixedFirstChild>
+            <FixedSecondChild>
+              <h1>Leozin</h1>
+              <h2>12 Tweets</h2>
+            </FixedSecondChild>
+          </FixedContainer>
+        </>
+      }
+    ></PageWrapper>
   );
 }
 
