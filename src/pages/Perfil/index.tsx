@@ -16,6 +16,7 @@ import { apiWithAuth } from "../../services/api";
 import Capitalize from "../../utils/Capitalize";
 import FormatDate from "../../utils/FormatDate";
 import { toast } from "react-toastify";
+import Tweet from "../../components/Tweet";
 
 interface ITweet {
   id: string;
@@ -44,7 +45,7 @@ function Perfil() {
 
       setProfile(data);
     } catch (error) {
-      toast.error(error?.response?.data?.message[0] || "Algo deu Errado!")
+      toast.error(error?.response?.data?.message[0] || "Algo deu Errado!");
     }
   };
 
@@ -75,37 +76,44 @@ function Perfil() {
       }
     >
       {profile && (
-        <MainContainer>
-          <ImageContainer>
-            <img
-              src={`https://robohash.org/${profile.username}`}
-              alt={profile.username}
-            />
-            <button>Editar perfil</button>
-          </ImageContainer>
-          <InfoContainer>
-            <h1>{Capitalize(profile.name)}</h1>
-            <h2>@{profile.username}</h2>
-            <p className="bio">{profile?.bio}</p>
-            <p className="joined_at">
-              <FaCalendarAlt></FaCalendarAlt>
-              Ingressou em{" "}
-              {FormatDate(profile.created_at).month +
-                " de " +
-                FormatDate(profile.created_at).year}
-            </p>
-            <FollowerCountContainer>
-              <p>
-                {" "}
-                <span>{profile.number_of_follows}</span> Seguindo
+        <>
+          <MainContainer>
+            <ImageContainer>
+              <img
+                src={`https://robohash.org/${profile.username}`}
+                alt={profile.username}
+              />
+              <button>Editar perfil</button>
+            </ImageContainer>
+            <InfoContainer>
+              <h1>{Capitalize(profile.name)}</h1>
+              <h2>@{profile.username}</h2>
+              <p className="bio">{profile?.bio}</p>
+              <p className="joined_at">
+                <FaCalendarAlt></FaCalendarAlt>
+                Ingressou em{" "}
+                {FormatDate(profile.created_at).month +
+                  " de " +
+                  FormatDate(profile.created_at).year}
               </p>
-              <p>
-                {" "}
-                <span>{profile.number_of_followers} </span> Seguidores
-              </p>
-            </FollowerCountContainer>
-          </InfoContainer>
-        </MainContainer>
+              <FollowerCountContainer>
+                <p>
+                  {" "}
+                  <span>{profile.number_of_follows}</span> Seguindo
+                </p>
+                <p>
+                  {" "}
+                  <span>{profile.number_of_followers} </span> Seguidores
+                </p>
+              </FollowerCountContainer>
+            </InfoContainer>
+          </MainContainer>
+          { profile.tweets.map((tweet) => 
+            <Tweet key={tweet.id} name={profile.name} username={profile.username} >
+              {tweet.content}
+            </Tweet>
+          ) }
+        </>
       )}
     </PageWrapper>
   );
