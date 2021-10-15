@@ -26,6 +26,7 @@ const Modal: React.FC<IModal> = ({ children, isOpen, setIsOpen, onClose }) => {
     document.addEventListener("keydown", closeESC);
 
     return () => {document.removeEventListener("keydown", closeESC);}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
