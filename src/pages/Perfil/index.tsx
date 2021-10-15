@@ -17,6 +17,8 @@ import Capitalize from "../../utils/Capitalize";
 import FormatDate from "../../utils/FormatDate";
 import { toast } from "react-toastify";
 import Tweet from "../../components/Tweet";
+import EditProfileModal from "../../components/EditProfileModal";
+import Button from "../../components/Button";
 
 interface ITweet {
   id: string;
@@ -38,6 +40,7 @@ interface IPerfil {
 
 function Perfil() {
   const [profile, setProfile] = useState<IPerfil>();
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
 
   const getProfile = async () => {
     try {
@@ -54,68 +57,75 @@ function Perfil() {
   }, []);
 
   return (
-    <PageWrapper
-      fixedContent={
-        <>
-          <FixedContainer>
-            <FixedFirstChild>
-              <Link to="/">
-                <BsArrowLeft size="18px" />
-              </Link>
-            </FixedFirstChild>
-            <FixedSecondChild>
-              {profile && (
-                <>
-                  <h1> {Capitalize(profile.name)} </h1>
-                  <h2> {profile.tweets.length} Tweets </h2>
-                </>
-              )}
-            </FixedSecondChild>
-          </FixedContainer>
-        </>
-      }
-    >
-      {profile && (
-        <>
-          <MainContainer>
-            <ImageContainer>
-              <img
-                src={`https://robohash.org/${profile.username}`}
-                alt={profile.username}
-              />
-              <button>Editar perfil</button>
-            </ImageContainer>
-            <InfoContainer>
-              <h1>{Capitalize(profile.name)}</h1>
-              <h2>@{profile.username}</h2>
-              <p className="bio">{profile?.bio}</p>
-              <p className="joined_at">
-                <FaCalendarAlt></FaCalendarAlt>
-                Ingressou em{" "}
-                {FormatDate(profile.created_at).month +
-                  " de " +
-                  FormatDate(profile.created_at).year}
-              </p>
-              <FollowerCountContainer>
-                <p>
-                  {" "}
-                  <span>{profile.number_of_follows}</span> Seguindo
+    <>
+      <PageWrapper
+        fixedContent={
+          <>
+            <FixedContainer>
+              <FixedFirstChild>
+                <Link to="/">
+                  <BsArrowLeft size="18px" />
+                </Link>
+              </FixedFirstChild>
+              <FixedSecondChild>
+                {profile && (
+                  <>
+                    <h1> {Capitalize(profile.name)} </h1>
+                    <h2> {profile.tweets.length} Tweets </h2>
+                  </>
+                )}
+              </FixedSecondChild>
+            </FixedContainer>
+          </>
+        }
+      >
+        {profile && (
+          <>
+            <MainContainer>
+              <ImageContainer>
+                <img
+                  src={`https://robohash.org/${profile.username}`}
+                  alt={profile.username}
+                />
+                <Button variant="black" width="max-content" onClick={()=>setIsEditProfileModalOpen(true)} >Editar perfil</Button>
+              </ImageContainer>
+              <InfoContainer>
+                <h1>{Capitalize(profile.name)}</h1>
+                <h2>@{profile.username}</h2>
+                <p className="bio">{profile?.bio}</p>
+                <p className="joined_at">
+                  <FaCalendarAlt></FaCalendarAlt>
+                  Ingressou em{" "}
+                  {FormatDate(profile.created_at).month +
+                    " de " +
+                    FormatDate(profile.created_at).year}
                 </p>
-                <p>
-                  {" "}
-                  <span>{profile.number_of_followers} </span> Seguidores
-                </p>
-              </FollowerCountContainer>
-            </InfoContainer>
-          </MainContainer>
-          { profile.tweets.map((tweet) => 
-            <Tweet key={tweet.id} name={profile.name} username={profile.username} >
-              {tweet.content}
-            </Tweet>
-          ) }
-        </>
-      )}
-    </PageWrapper>
+                <FollowerCountContainer>
+                  <p>
+                    {" "}
+                    <span>{profile.number_of_follows}</span> Seguindo
+                  </p>
+                  <p>
+                    {" "}
+                    <span>{profile.number_of_followers} </span> Seguidores
+                  </p>
+                </FollowerCountContainer>
+              </InfoContainer>
+            </MainContainer>
+            {profile.tweets.map((tweet) => (
+              <Tweet
+                key={tweet.id}
+                name={profile.name}
+                username={profile.username}
+              >
+                {tweet.content}
+              </Tweet>
+            ))}
+          </>
+        )}
+      </PageWrapper>
+      <EditProfileModal isOpen={isEditProfileModalOpen} setIsOpen={setIsEditProfileModalOpen} />
+    </>
   );
 }
 
