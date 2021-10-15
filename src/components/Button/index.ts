@@ -4,17 +4,20 @@ interface IProps {
     width?: string
     height?: string
     isDisabled?: boolean
+    variant?: 'blue' | 'white' | 'black'
 }
 
 const Button = styled.button<IProps>`
-  border: none;
   border-radius: 50px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
   line-height: 18px;
-  color: #fff;
-  background-color: ${(props) => props.theme.color.blue};
+  color: ${props => props.variant === 'white' ? 'black' : 'white' };
+  background-color: ${(props) => props.variant === 'blue' || !props.variant ? props.theme.color.blue : props.variant };
+  border: ${props => props.variant === 'black' ? '1px solid' + props.theme.color.borderColor : 'none' };
+  
+
   width: ${(props) => props.width || "105px"};
   height: ${(props) => props.height || "39px"};
 
