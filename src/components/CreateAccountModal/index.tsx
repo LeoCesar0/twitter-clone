@@ -36,8 +36,10 @@ const CreateAccountModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
       password
     );
 
+
     if (validation !== true) {
       toast.error(validation);
+      return
     }
 
     setLoading(true);

@@ -34,6 +34,7 @@ const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     if (validation !== true) {
       toast.error(validation);
+      return
     }
 
     setLoading(true);
