@@ -38,7 +38,6 @@ const LoginModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     setLoading(true);
 
-    // Post Users
 
     try {
       const { data } = await api.post("/login", {

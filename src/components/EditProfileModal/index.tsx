@@ -9,6 +9,7 @@ import Button from "../Button";
 import { useState } from "react";
 import { apiWithAuth } from "../../services/api";
 import { toast } from "react-toastify";
+import { useGlobalState } from "../../context/GlobalContext";
 
 interface IProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ const EditProfileModal: React.FC<IProps> = ({ setIsOpen, isOpen, getProfile }) =
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false)
+  const {setNameInAuth} = useGlobalState()
 
   const isDisabled = (name === "" && password === "" && bio === "") || (password.length > 0 && password.length < 8 ) || loading
 
@@ -42,10 +44,10 @@ const EditProfileModal: React.FC<IProps> = ({ setIsOpen, isOpen, getProfile }) =
       requestBody = { ...requestBody, password };
     }
 
-    console.log(requestBody)
 
     try{
-      await apiWithAuth.put("/profile", requestBody);
+      const { data } = await apiWithAuth.put("/profile", requestBody);
+      setNameInAuth(data.name)
       handleCloseModal(true)
 
     } catch(error){

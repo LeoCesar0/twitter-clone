@@ -50,7 +50,6 @@ function Home() {
       const { data } = await apiWithAuth.get<ITweet[]>("/feed");
 
       setTweets(data);
-      console.log(data);
     } catch (error) {
       toast.error(
         error?.response?.data?.message.join(". ") ||
