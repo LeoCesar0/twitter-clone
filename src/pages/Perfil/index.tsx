@@ -40,7 +40,7 @@ interface IPerfil {
 
 function Perfil() {
   const [profile, setProfile] = useState<IPerfil>();
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
   const getProfile = async () => {
     try {
@@ -87,7 +87,13 @@ function Perfil() {
                   src={`https://robohash.org/${profile.username}`}
                   alt={profile.username}
                 />
-                <Button variant="black" width="max-content" onClick={()=>setIsEditProfileModalOpen(true)} >Editar perfil</Button>
+                <Button
+                  variant="black"
+                  width="max-content"
+                  onClick={() => setIsEditProfileModalOpen(true)}
+                >
+                  Editar perfil
+                </Button>
               </ImageContainer>
               <InfoContainer>
                 <h1>{Capitalize(profile.name)}</h1>
@@ -124,7 +130,14 @@ function Perfil() {
           </>
         )}
       </PageWrapper>
-      <EditProfileModal isOpen={isEditProfileModalOpen} setIsOpen={setIsEditProfileModalOpen} />
+
+      {profile && (
+        <EditProfileModal
+          isOpen={isEditProfileModalOpen}
+          setIsOpen={setIsEditProfileModalOpen}
+          getProfile={getProfile}
+        />
+      )}
     </>
   );
 }

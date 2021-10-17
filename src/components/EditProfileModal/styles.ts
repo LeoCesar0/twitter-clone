@@ -4,6 +4,8 @@ export const ModalHeader = styled.div`
   display: flex;
   align-items: center;
 
+  margin-bottom: 26px;
+
   h1 {
     margin-left: 30px;
     font-weight: bold;
@@ -22,7 +24,7 @@ export const ModalHeader = styled.div`
   }
 `;
 
-export const ImageContainer = styled.div``;
+
 
 export const InfoContainer = styled.div``;
 
