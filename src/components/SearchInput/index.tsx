@@ -1,4 +1,10 @@
-import { Container, DropDown, Input, UserContainer } from "./styles";
+import {
+  Container,
+  DropDown,
+  Input,
+  ToCloseBackground,
+  UserContainer,
+} from "./styles";
 import { FiSearch } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { apiWithAuth } from "../../services/api";
@@ -30,40 +36,53 @@ const SearchInput = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  return (
-    <Container isOnFocus={isOnFocus}>
-      <FiSearch />
-      <Input
-        placeholder="Buscar no Twitter"
-        onFocus={() => {
-          setIsOnFocus(true);
-        }}
-        onBlur={() => {
-          setIsOnFocus(false);
-        }}
-        value={search}
-        onChange={(event) => {
-          setSearch(event.target.value);
-        }}
-      ></Input>
+  // if(isOnFocus){
+  //   const bg = document.querySelector("#to-close-background")
+  //   bg?.addEventListener("click",()=>{
+  //     console.log("Clicou")
+  //   })
 
-      {users && isOnFocus && (
-        <DropDown>
-          {users.map((user, index) => (
-            <UserContainer key={index}>
-              <img
-                src={`https://robohash.org/${user.username}`}
-                alt={user.username}
-              />
-              <div>
-                <h1>{user.name}</h1>
-                <h2>@{user.username}</h2>
-              </div>
-            </UserContainer>
-          ))}
-        </DropDown>
-      )}
-    </Container>
+  // }
+
+  return (
+    <>
+      <Container isOnFocus={isOnFocus}>
+        <FiSearch />
+        <Input
+          placeholder="Buscar no Twitter"
+          onFocus={() => {
+            setIsOnFocus(true);
+          }}
+          value={search}
+          onChange={(event) => {
+            setSearch(event.target.value);
+          }}
+        ></Input>
+
+        {users && isOnFocus && (
+          <DropDown>
+            {users.map((user, index) => (
+              <UserContainer key={index}>
+                <img
+                  src={`https://robohash.org/${user.username}`}
+                  alt={user.username}
+                />
+                <div>
+                  <h1>{user.name}</h1>
+                  <h2>@{user.username}</h2>
+                </div>
+              </UserContainer>
+            ))}
+          </DropDown>
+        )}
+      </Container>
+
+      {isOnFocus && 
+        <ToCloseBackground id="to-close-background" onClick={()=>{
+          isOnFocus && setIsOnFocus(false)
+        }} />
+      }
+    </>
   );
 };
 
