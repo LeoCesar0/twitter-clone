@@ -9,7 +9,7 @@ import {
   MainContainer,
 } from "./styles";
 import { BsArrowLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiWithAuth } from "../../services/api";
@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import Tweet from "../../components/Tweet";
 import EditProfileModal from "../../components/EditProfileModal";
 import Button from "../../components/Button";
+import { useGlobalState } from "../../context/GlobalContext";
 
 interface ITweet {
   id: string;
@@ -38,9 +39,20 @@ interface IPerfil {
   tweets: ITweet[];
 }
 
+interface IParams {
+  username: string;
+}
+
 function Perfil() {
   const [profile, setProfile] = useState<IPerfil>();
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const { username } = useParams<IParams>();
+
+  const {auth} = useGlobalState()
+
+  let isMyProfile = !username || username === auth?.user.username
+
+  console.log(isMyProfile)
 
   const getProfile = async () => {
     try {
