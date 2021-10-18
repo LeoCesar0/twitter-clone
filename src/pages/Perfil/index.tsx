@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import Tweet from "../../components/Tweet";
 import EditProfileModal from "../../components/EditProfileModal";
 import Button from "../../components/Button";
-import { useGlobalState } from "../../context/GlobalContext";
+import { IAuth, useGlobalState } from "../../context/GlobalContext";
 
 interface ITweet {
   id: string;
@@ -37,6 +37,7 @@ interface IPerfil {
   number_of_followers: number;
   number_of_follows: number;
   tweets: ITweet[];
+  isFollowing?: boolean
 }
 
 interface IParams {
@@ -48,19 +49,23 @@ function Perfil() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const { username } = useParams<IParams>();
 
-  const {auth} = useGlobalState()
+  const {
+    auth: { user },
+  } = useGlobalState() as { auth: IAuth };
 
-  let isMyProfile = !username || username === auth?.user.username
+  let isMyProfile = !username || username === user.username;
 
-  console.log(isMyProfile)
+  console.log(isMyProfile);
 
   const getProfile = async () => {
     try {
-      const { data } = await apiWithAuth.get("/profile");
+      const { data } = await apiWithAuth.get(
+        isMyProfile ? "/profile" : `/users/${username}`
+      );
 
       setProfile(data);
     } catch (error) {
-      toast.error(error?.response?.data?.message[0] || "Algo deu Errado!");
+      toast.error(error?.response?.data?.message || "Algo deu Errado!");
     }
   };
 
@@ -99,13 +104,22 @@ function Perfil() {
                   src={`https://robohash.org/${profile.username}`}
                   alt={profile.username}
                 />
-                <Button
-                  variant="black"
-                  width="max-content"
-                  onClick={() => setIsEditProfileModalOpen(true)}
-                >
-                  Editar perfil
-                </Button>
+                {isMyProfile ? (
+                  <Button
+                    variant="black"
+                    width="max-content"
+                    onClick={() => setIsEditProfileModalOpen(true)}
+                  >
+                    Editar perfil
+                  </Button>
+                ) : (
+                  <Button
+                  variant={profile.isFollowing ? "black" : "white" }
+                    width="max-content"
+                  >
+                    { profile.isFollowing ? "Seguindo" : "Seguir" }
+                  </Button>
+                )}
               </ImageContainer>
               <InfoContainer>
                 <h1>{Capitalize(profile.name)}</h1>
