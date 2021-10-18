@@ -135,6 +135,7 @@ function Perfil() {
                   <Button
                     variant="black"
                     onClick={() => setIsEditProfileModalOpen(true)}
+                    width="max-content"
                   >
                     Editar perfil
                   </Button>
