@@ -36,13 +36,8 @@ const SearchInput = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  // if(isOnFocus){
-  //   const bg = document.querySelector("#to-close-background")
-  //   bg?.addEventListener("click",()=>{
-  //     console.log("Clicou")
-  //   })
 
-  // }
+
 
   return (
     <>
@@ -60,7 +55,7 @@ const SearchInput = () => {
         ></Input>
 
         {users && isOnFocus && (
-          <DropDown>
+          <DropDown id="dropdown"  >
             {users.map((user, index) => (
               <UserContainer key={index}>
                 <img
@@ -78,7 +73,7 @@ const SearchInput = () => {
       </Container>
 
       {isOnFocus && 
-        <ToCloseBackground id="to-close-background" onClick={()=>{
+        <ToCloseBackground onClick={()=>{
           isOnFocus && setIsOnFocus(false)
         }} />
       }
