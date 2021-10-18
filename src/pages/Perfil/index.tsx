@@ -37,7 +37,7 @@ interface IPerfil {
   number_of_followers: number;
   number_of_follows: number;
   tweets: ITweet[];
-  isFollowing?: boolean
+  isFollowing?: boolean;
 }
 
 interface IParams {
@@ -71,8 +71,34 @@ function Perfil() {
 
   useEffect(() => {
     getProfile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
+
+  const follow = async (id: string) => {
+    try {
+      await apiWithAuth.post("/follows", {
+        follow_user_id: id,
+      });
+
+      getProfile();
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Erro ao dar Follow");
+    }
+  };
+
+  const unFollow = async (id: string) => {
+    try {
+      apiWithAuth.delete("/follows", {
+        data: {
+          follow_user_id: id,
+        },
+      });
+
+      getProfile();
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Erro ao dar Unfollow");
+    }
+  };
 
   return (
     <>
@@ -108,17 +134,27 @@ function Perfil() {
                 {isMyProfile ? (
                   <Button
                     variant="black"
-                    width="max-content"
                     onClick={() => setIsEditProfileModalOpen(true)}
                   >
                     Editar perfil
                   </Button>
+                ) : profile.isFollowing ? (
+                  <Button
+                    variant="black"
+                    onClick={() => {
+                      unFollow(profile.id);
+                    }}
+                  >
+                    Seguindo
+                  </Button>
                 ) : (
                   <Button
-                  variant={profile.isFollowing ? "black" : "white" }
-                    width="max-content"
+                    variant="white"
+                    onClick={() => {
+                      follow(profile.id);
+                    }}
                   >
-                    { profile.isFollowing ? "Seguindo" : "Seguir" }
+                    Seguir
                   </Button>
                 )}
               </ImageContainer>

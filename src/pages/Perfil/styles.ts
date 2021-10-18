@@ -49,12 +49,7 @@ export const ImageContainer = styled.div`
   }
 
   button {
-    height: max-content;
-    background: none;
-    color: white;
     padding: 8px 16px;
-    border: 1px solid ${(props) => props.theme.color.borderColor};
-    border-radius: 53px;
   }
 `;
 
