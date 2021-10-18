@@ -82,12 +82,14 @@ export const DropDown = styled.div`
     height: auto;
     border-radius: 50%;
     margin-right: 10px;
+    cursor: pointer;
   }
 
   h1 {
     font-weight: bold;
     font-size: 15px;
     line-height: 18px;
+    cursor: pointer;
   }
 
   h2 {
