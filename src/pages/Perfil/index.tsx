@@ -185,11 +185,11 @@ function Perfil() {
                 <FollowerCountContainer>
                   <p>
                     {" "}
-                    <span>{profile.number_of_follows}</span> Seguindo
+                    <span>{profile.number_of_follows}</span> { isMyProfile ? <Link to="/perfil/seguidores" >Seguindo</Link> : "Seguindo" }
                   </p>
                   <p>
                     {" "}
-                    <span>{profile.number_of_followers} </span> Seguidores
+                    <span>{profile.number_of_followers} </span> { isMyProfile ? <Link to="/perfil/seguidores" >Seguindo</Link> : "seguidores" }
                   </p>
                 </FollowerCountContainer>
               </InfoContainer>

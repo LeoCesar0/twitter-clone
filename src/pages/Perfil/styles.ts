@@ -95,7 +95,7 @@ export const FollowerCountContainer = styled.div`
     display: flex;
     gap: 8px;
 
-    p{
+    p, a{
         color: #6d777c;
     }
 

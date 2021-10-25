@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import { GlobalStateProvider } from "./context/GlobalContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Perfil from "./pages/Perfil";
+import Seguidores from "./pages/Seguidores";
 
 const Routes = () => {
   return (
@@ -36,6 +37,9 @@ const Routes = () => {
             </ProtectedRoute>
             <ProtectedRoute exact path="/perfil">
               <Perfil />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/perfil/seguidores">
+              <Seguidores />
             </ProtectedRoute>
             <ProtectedRoute path="/perfil/:username">
               <Perfil />
