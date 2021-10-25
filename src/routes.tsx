@@ -41,8 +41,11 @@ const Routes = () => {
             <ProtectedRoute exact path="/perfil/seguidores">
               <Seguidores />
             </ProtectedRoute>
-            <ProtectedRoute path="/perfil/:username">
+            <ProtectedRoute exact path="/perfil/:username">
               <Perfil />
+            </ProtectedRoute>
+            <ProtectedRoute path="/perfil/:username/seguidores">
+              <Seguidores />
             </ProtectedRoute>
             <Route path="/login">
               <Login />

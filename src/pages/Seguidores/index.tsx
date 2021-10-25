@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import PageWrapper from "../../components/PageWrapper";
-import { useGlobalState } from "../../context/GlobalContext";
 import { apiWithAuth } from "../../services/api";
 import Capitalize from "../../utils/Capitalize";
 import {
@@ -16,7 +15,9 @@ import {
   UserContainer,
 } from "./styles";
 
-
+interface IParams {
+  username: string;
+}
 
 interface IFollowers {
   id: string;
@@ -37,25 +38,28 @@ interface IData {
 const Seguidores: React.FC = () => {
   const [follows, setFollows] = useState<IFollowers[]>();
   const [followers, setFollowers] = useState<IFollowers[]>();
-  const [showing, setShowing] = useState("followers")
-  const [loading, setLoading] = useState(false);
-  const { auth } = useGlobalState();
-  const history = useHistory()
+  const [showing, setShowing] = useState("followers");
+  const [name, setName] = useState<string | null>()
+  const history = useHistory();
+  const { username } = useParams<IParams>();
+
 
   const getProfile = async () => {
     try {
-      const { data } = await apiWithAuth.get<IData>("/profile/follows");
+      const { data } = await apiWithAuth.get<IData>(!username ? "/profile/follows" : `/users/${username}/follows` );
 
       setFollowers(data.followers);
       setFollows(data.follows);
+      setName(data.name)
     } catch (error) {
       toast.error(error?.response?.data?.message || "Algo deu Errado!");
     }
+
   };
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [username]);
 
   return (
     <PageWrapper
@@ -63,48 +67,92 @@ const Seguidores: React.FC = () => {
         <>
           <FixedContainer>
             <FixedFirstChild>
-              <Link to="/">
+              <Link to="#" onClick={()=>{history.goBack()}}>
                 <BsArrowLeft size="18px" />
               </Link>
             </FixedFirstChild>
             <FixedSecondChild>
-              {auth && (
+              {name && (
                 <>
-                  <h1> {Capitalize(auth.user.name)} </h1>
+                  <h1> {Capitalize(name)} </h1>
                 </>
               )}
             </FixedSecondChild>
             <FollowFollowers>
-              <Switcher  onClick={()=>{setShowing("followers")}} isActive={showing === "followers" ? true : false}>Seguidores</Switcher>
-              <Switcher  onClick={()=>{setShowing("follows")}}  isActive={showing === "follows" ? true : false}>Seguindo</Switcher>
+              <Switcher
+                onClick={() => {
+                  setShowing("followers");
+                }}
+                isActive={showing === "followers" ? true : false}
+              >
+                Seguidores
+              </Switcher>
+              <Switcher
+                onClick={() => {
+                  setShowing("follows");
+                }}
+                isActive={showing === "follows" ? true : false}
+              >
+                Seguindo
+              </Switcher>
             </FollowFollowers>
           </FixedContainer>
         </>
       }
     >
       <Main>
-        {followers && showing === "followers" &&
+        {followers &&
+          showing === "followers" &&
           followers.map((follower, index) => (
-            <UserContainer key={index}  >
-              <img src={`https://robohash.org/${follower.username}`} alt={follower.username} onClick={()=>{history.push(`/perfil/${follower.username}`)}} />
+            <UserContainer key={index}>
+              <img
+                src={`https://robohash.org/${follower.username}`}
+                alt={follower.username}
+                onClick={() => {
+                  history.push(`/perfil/${follower.username}`);
+                }}
+              />
               <div>
-                <h2 onClick={()=>{history.push(`/perfil/${follower.username}`)}}>{follower.name}</h2>
+                <h2
+                  onClick={() => {
+                    history.push(`/perfil/${follower.username}`);
+                  }}
+                >
+                  {follower.name}
+                </h2>
                 <h3>@{follower.username}</h3>
-                <p>{follower.bio && follower.bio.slice(0,48)
-                } {follower.bio && follower.bio.length > 50 && "..." } </p>
+                <p>
+                  {follower.bio && follower.bio.slice(0, 48)}{" "}
+                  {follower.bio && follower.bio.length > 50 && "..."}{" "}
+                </p>
               </div>
             </UserContainer>
           ))}
 
-{follows && showing === "follows" &&
+        {follows &&
+          showing === "follows" &&
           follows.map((follow, index) => (
-            <UserContainer key={index} >
-              <img src={`https://robohash.org/${follow.username}`} alt={follow.username} onClick={()=>{history.push(`/perfil/${follow.username}`)}} />
+            <UserContainer key={index}>
+              <img
+                src={`https://robohash.org/${follow.username}`}
+                alt={follow.username}
+                onClick={() => {
+                  history.push(`/perfil/${follow.username}`);
+                }}
+              />
               <div>
-                <h2 onClick={()=>{history.push(`/perfil/${follow.username}`)}} >{follow.name}</h2>
+                <h2
+                  onClick={() => {
+                    history.push(`/perfil/${follow.username}`);
+                  }}
+                >
+                  {follow.name}
+                </h2>
                 <h3>@{follow.username}</h3>
-                <p>{follow.bio && follow.bio.slice(0,48)
-                } {follow.bio && follow.bio.length > 50 && "..." } </p>
+                <p>
+                  {follow.bio && follow.bio.slice(0, 48)}{" "}
+                  {follow.bio && follow.bio.length > 50 && "..."}{" "}
+                </p>
               </div>
             </UserContainer>
           ))}

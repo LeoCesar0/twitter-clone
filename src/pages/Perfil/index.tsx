@@ -9,7 +9,7 @@ import {
   MainContainer,
 } from "./styles";
 import { BsArrowLeft } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { apiWithAuth } from "../../services/api";
@@ -49,6 +49,7 @@ function Perfil() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const { username } = useParams<IParams>();
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
   const {
     auth: { user },
@@ -117,7 +118,7 @@ function Perfil() {
           <>
             <FixedContainer>
               <FixedFirstChild>
-                <Link to="/">
+                <Link to="#" onClick={()=>{history.goBack()}}>
                   <BsArrowLeft size="18px" />
                 </Link>
               </FixedFirstChild>
@@ -185,11 +186,13 @@ function Perfil() {
                 <FollowerCountContainer>
                   <p>
                     {" "}
-                    <span>{profile.number_of_follows}</span> { isMyProfile ? <Link to="/perfil/seguidores" >Seguindo</Link> : "Seguindo" }
+                    <span>{profile.number_of_follows}</span> <Link to={isMyProfile ? "/perfil/seguidores" : `/perfil/${profile.username}/seguidores`} >Seguindo</Link> 
                   </p>
                   <p>
                     {" "}
-                    <span>{profile.number_of_followers} </span> { isMyProfile ? <Link to="/perfil/seguidores" >Seguindo</Link> : "seguidores" }
+                    <span>{profile.number_of_followers} </span> <Link to={isMyProfile ? "/perfil/seguidores" : `/perfil/${profile.username}/seguidores`} >{
+                      profile.number_of_followers > 1 ? "Seguidores" : "Seguidor"
+                    }</Link> 
                   </p>
                 </FollowerCountContainer>
               </InfoContainer>

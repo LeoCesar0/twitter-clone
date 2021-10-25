@@ -9,7 +9,10 @@ export const UserName = styled.div`
 
   border-bottom: 1px solid ${(props) => props.theme.color.borderColor};
 
+  font-size: 15px;
+  line-height: 18px;
 
+  color: #ffffff;
 `;
 
 export const TweetContainer = styled.div`
@@ -38,7 +41,7 @@ export const TweetContainer = styled.div`
   }
 
   &::after {
-      content: "";
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 0;
@@ -59,5 +62,3 @@ export const TweetInput = styled.input`
 
   color: ${(props) => props.theme.color.gray};
 `;
-
-
