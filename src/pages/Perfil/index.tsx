@@ -48,6 +48,7 @@ function Perfil() {
   const [profile, setProfile] = useState<IPerfil>();
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const { username } = useParams<IParams>();
+  const [loading, setLoading] = useState(false)
 
   const {
     auth: { user },
@@ -67,6 +68,8 @@ function Perfil() {
     } catch (error) {
       toast.error(error?.response?.data?.message || "Algo deu Errado!");
     }
+
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -75,6 +78,7 @@ function Perfil() {
   }, [username]);
 
   const follow = async (id: string) => {
+    setLoading(true)
     try {
       await apiWithAuth.post("/follows", {
         follow_user_id: id,
@@ -83,12 +87,16 @@ function Perfil() {
       getProfile();
     } catch (error) {
       toast.error(error?.response?.data?.message || "Erro ao dar Follow");
+      setLoading(false)
     }
+    
+    
   };
 
   const unFollow = async (id: string) => {
+    setLoading(true)
     try {
-      apiWithAuth.delete("/follows", {
+      await apiWithAuth.delete("/follows", {
         data: {
           follow_user_id: id,
         },
@@ -97,7 +105,9 @@ function Perfil() {
       getProfile();
     } catch (error) {
       toast.error(error?.response?.data?.message || "Erro ao dar Unfollow");
+      setLoading(false)
     }
+    
   };
 
   return (
@@ -145,6 +155,7 @@ function Perfil() {
                     onClick={() => {
                       unFollow(profile.id);
                     }}
+                    isDisabled={loading}
                   >
                     Seguindo
                   </Button>
@@ -154,6 +165,7 @@ function Perfil() {
                     onClick={() => {
                       follow(profile.id);
                     }}
+                    isDisabled={loading}
                   >
                     Seguir
                   </Button>
